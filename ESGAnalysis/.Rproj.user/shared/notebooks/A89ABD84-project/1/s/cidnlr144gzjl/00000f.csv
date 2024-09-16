@@ -1,0 +1,3 @@
+"0","#School enrollment, primary (% gross) "
+"0","library('ggplot2')"
+"0","qqnorm(ausV27$VALUE);qqline(ausV27$VALUE)"

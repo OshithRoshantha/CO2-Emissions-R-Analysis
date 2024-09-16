@@ -1,0 +1,1 @@
+"0","ggplot(combined_data_Adjusted_savings_naturalResources, aes(x = YEAR, y = VALUE, group = country, color = country)) +geom_line() +geom_point() +labs(title = ""Adjusted savings: natural resources depletion"",x = ""YEAR"",y = ""Percentage of GNI"")"

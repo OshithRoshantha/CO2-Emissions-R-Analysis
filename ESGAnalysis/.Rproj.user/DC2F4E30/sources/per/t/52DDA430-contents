@@ -1,0 +1,150 @@
+---
+title: "CO2 emissions (metric tons per capita)"
+author: "Oshith Roshantha"
+date: "2024-09-16"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+# Set global options for code chunks
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# Load and filter the dataset
+# Read the CSV file into a dataframe
+filtered_df <- read.csv("D:/OSHITH/R/ESGCSV.csv")
+
+# Filter data for Sri Lanka and Bangladesh for specific indicators
+filtered_df <- filtered_df[
+  (filtered_df$Country.Name %in% c('Sri Lanka', 'Bangladesh') & 
+     filtered_df$Indicator.Code == 'EN.ATM.CO2E.PC') |
+  (filtered_df$Country.Name == 'Sri Lanka' & 
+     filtered_df$Indicator.Code == 'NY.GDP.MKTP.KD.ZG'), 
+]
+
+head(filtered_df)
+
+```
+```{r}
+library(dplyr)
+
+# Clean the dataset by removing columns with any missing values
+imputed_df <- filtered_df
+imputed_df <- imputed_df %>%
+  select(where(~ !any(is.na(.))))
+
+# Separate the data into GDP and CO2 emissions
+gdp_data <- imputed_df[imputed_df$Indicator.Code == 'NY.GDP.MKTP.KD.ZG', ]
+co2_data <- imputed_df[imputed_df$Indicator.Code == 'EN.ATM.CO2E.PC', ]
+
+gdp_data
+co2_data
+
+```
+```{r}
+# Reshape CO2 emissions data for easier analysis
+reshaped_data <- co2_data[, -c(2, 3, 4)]
+
+reshaped_data <- t(reshaped_data)
+reshaped_data <- as.data.frame(reshaped_data)
+colnames(reshaped_data) <- reshaped_data[1, ]
+reshaped_data <- reshaped_data[-1, ]
+reshaped_data[] <- lapply(reshaped_data, as.numeric)
+
+reshaped_data
+
+```
+```{r}
+# Prepare data for plotting
+# Filter CO2 and GDP data for Sri Lanka
+co2_filtered <- co2_data[co2_data$Country.Code == 'LKA', ]
+gdp_filtered <- gdp_data[1, ]  
+
+co2_filtered <- co2_filtered[, -c(1, 2, 3, 4)]
+gdp_filtered <- gdp_filtered[, -c(1, 2, 3, 4)]
+
+co2_transposed <- t(co2_filtered)
+gdp_transposed <- t(gdp_filtered)
+
+co2_vector <- as.numeric(co2_transposed)
+gdp_vector <- as.numeric(gdp_transposed)
+
+df <- data.frame(
+  CO2_Emissions = co2_vector,
+  GDP_Growth = gdp_vector
+)
+
+```
+
+```{r}
+library(psych)
+
+# Provide descriptive statistics for reshaped data
+describe(reshaped_data)
+
+```
+```{r}
+library(dplyr)
+
+# Prepare and combine data for plotting
+df_SL <- reshaped_data %>%
+  select(`Sri Lanka`) %>%
+  rename(Value = `Sri Lanka`)
+df_SL <- df_SL %>%
+  mutate(Year = seq(1990, 1990 + nrow(df_SL) - 1))
+
+df_BAN <- reshaped_data %>%
+  select(`Bangladesh`) %>%
+  rename(Value = `Bangladesh`)
+df_BAN <- df_BAN %>%
+  mutate(Year = seq(1990, 1990 + nrow(df_BAN) - 1))
+
+combined_data <- rbind(
+  transform(df_SL, Country = "Sri Lanka"),
+  transform(df_BAN, Country = "Bangladesh")
+)
+
+```
+```{r}
+library(ggplot2)
+
+# Plot CO2 emissions per capita over time for Sri Lanka
+ggplot(df_SL, aes(x = Year, y = Value)) +
+  geom_line(color = "blue", size = 1, alpha = 0.9, linetype = 2) +
+  theme_minimal() +
+  ggtitle("Trends in CO2 Emissions Per Capita Over Time (Sri Lanka)") +
+  xlab("Year") +
+  ylab("CO2 Emissions (Metric Tons per Capita)")
+
+# Compare CO2 emissions per capita between Sri Lanka and Bangladesh
+ggplot(combined_data, aes(x = Year, y = Value, color = Country, group = Country)) +
+  geom_line(size = 1) +  
+  theme_minimal() +
+  labs(title = "Comparison of CO2 Emissions (Metric Tons per Capita): Sri Lanka vs Bangladesh",
+       x = "Year",
+       y = "CO2 Emissions (Metric Tons per Capita)",
+       color = "Country") +
+  theme(legend.position = "bottom")
+
+ 
+```
+```{r}
+library(ggplot2)
+
+# Plot correlation between CO2 emissions and GDP growth
+ggplot(df, aes(x = GDP_Growth, y = CO2_Emissions)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  labs(title = "Correlation between CO2 Emissions and GDP Growth",
+       x = "GDP Growth (%)",
+       y = "CO2 Emissions (Metric Tons per Capita)") +
+  theme_minimal()
+
+```
+
+
+
+
+
+

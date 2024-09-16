@@ -1,0 +1,1 @@
+"0","ggplot(nzlV26)+aes(x=VALUE)+labs(title = ""Population density in New Zealand"")+geom_density()"

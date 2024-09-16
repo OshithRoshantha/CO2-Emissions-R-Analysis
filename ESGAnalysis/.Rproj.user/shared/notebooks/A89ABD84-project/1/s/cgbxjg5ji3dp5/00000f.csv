@@ -1,0 +1,209 @@
+"0","#Create seperate dataframes for each variable "
+"0","library(reshape2)"
+"0","for(i in 0:nrow(ausData)){"
+"0","mData<-melt(ausData[i, -1])"
+"0","colnames(mData)<-c(""INDICATOR"",""YEAR"",""VALUE"")"
+"0","assign(paste(""ausV"", i, sep = """"), data.frame(mData))"
+"0","}"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"0","for(i in 0:nrow(nzlData)){"
+"0","mData2<-melt(nzlData[i, -1])"
+"0","colnames(mData2)<-c(""INDICATOR"",""YEAR"",""VALUE"")"
+"0","assign(paste(""nzlV"", i, sep = """"), data.frame(mData2))"
+"0","}"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"0","for(i in 0:nrow(chnData)){"
+"0","mData3<-melt(chnData[i, -1])"
+"0","colnames(mData3)<-c(""INDICATOR"",""YEAR"",""VALUE"")"
+"0","assign(paste(""chnV"", i, sep = """"), data.frame(mData3))"
+"0","}"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"
+"2","Using Indicator.Name as id variables
+"

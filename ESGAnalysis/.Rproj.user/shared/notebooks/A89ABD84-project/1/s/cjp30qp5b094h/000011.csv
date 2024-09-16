@@ -1,0 +1,1 @@
+"0","hist(nzlV21$VALUE,main = ""Life expectancy at birth in New Zealand "",xlab=""Number of years"",col=""pink"",axes=TRUE)"

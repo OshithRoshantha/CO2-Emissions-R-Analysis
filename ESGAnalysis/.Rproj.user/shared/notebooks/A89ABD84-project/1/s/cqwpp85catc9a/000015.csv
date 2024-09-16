@@ -1,0 +1,1 @@
+"0","ggplot(combined_data_Adjusted_savings_naturalResources, aes(x = country, y = VALUE)) +geom_boxplot() +labs(title = ""Boxplots for Adjusted savings:natural resources depletion "",x = ""Country"", y = ""Percentage of GNI"") "

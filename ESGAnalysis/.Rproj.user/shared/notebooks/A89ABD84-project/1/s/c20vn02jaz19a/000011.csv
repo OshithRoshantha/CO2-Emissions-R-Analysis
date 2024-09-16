@@ -1,0 +1,1 @@
+"0","ggplot(combined_data_Patent_applications_residents)+aes(x=VALUE)+labs(title = ""Patent applications, residents in all 3 countries"")+geom_density()"

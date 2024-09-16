@@ -1,0 +1,805 @@
+---
+title: "RPROJECT_GRP5"
+author: "Oshith Roshantha"
+date: "2024-02-27"
+output: pdf_document
+---
+
+
+```{r,name='Import .CSV'}
+#Import .CSV'
+data<-read.csv("D:/academic/LEVEL II/SEMII/Rstudio/project/dataset.csv")
+```
+```{r,name='filter specifed Countries'}
+#filter specifed Countries
+fData<-data[data$Country.Code %in% c('AUS','NZL','CHN'),]
+```
+```{r,name='Remove rows, where non-NULL data count is less than half'}
+#Remove rows, where non-NULL data count is less than half
+fData<-fData[(rowSums(!is.na(fData[,5:ncol(fData)])))>=32,]
+```
+```{r,name='Replace each NA values in row by rowMean'}
+#Replace each NA values in row by rowMean
+for(i in 1:nrow(fData)){
+  rv <- fData[i, 5:ncol(fData)]  
+  nv <- as.numeric(rv[!is.na(rv)])  
+  rMean <- mean(nv, na.rm = TRUE) 
+  fData[i, is.na(fData[i,])] <- rMean
+}
+```
+```{r,name='Country Code,Indicator & Data value(1960:2023)'}
+#Country Code,Indicator & Data value(1960:2023)
+ausData<-fData[fData$Country.Code=='AUS',-c(1,4)]
+nzlData<-fData[fData$Country.Code=='NZL',-c(1,4)]
+chnData<-fData[fData$Country.Code=='CHN',-c(1,4)]
+```
+```{r,name='Create seperate dataframes for each variable'}
+#Create seperate dataframes for each variable 
+library(reshape2)
+for(i in 0:nrow(ausData)){
+mData<-melt(ausData[i, -1])
+colnames(mData)<-c("INDICATOR","YEAR","VALUE")
+assign(paste("ausV", i, sep = ""), data.frame(mData))
+}
+for(i in 0:nrow(nzlData)){
+mData2<-melt(nzlData[i, -1])
+colnames(mData2)<-c("INDICATOR","YEAR","VALUE")
+assign(paste("nzlV", i, sep = ""), data.frame(mData2))
+}
+for(i in 0:nrow(chnData)){
+mData3<-melt(chnData[i, -1])
+colnames(mData3)<-c("INDICATOR","YEAR","VALUE")
+assign(paste("chnV", i, sep = ""), data.frame(mData3))
+}
+```
+```{r}
+#Discriptive statistics for Australia (Prevalence of overweight (% of adults))
+mean_prevalence <- mean(ausV25$VALUE)
+median_prevalence <- median(ausV25$VALUE)
+std_dev_prevalence <- sd(ausV25$VALUE)
+min_prevalence <- min(ausV25$VALUE)
+max_prevalence <- max(ausV25$VALUE)
+percentiles <- quantile(ausV25$VALUE, c(0.25, 0.75))
+iqr <- IQR(ausV25$VALUE)
+
+cat("Mean:", mean_prevalence, "\n")
+cat("Median:", median_prevalence, "\n")
+cat("Standard Deviation:", std_dev_prevalence, "\n")
+cat("Minimum:", min_prevalence, "\n")
+cat("Maximum:", max_prevalence, "\n")
+cat("75th Percentile:", percentiles[2], "\n")
+cat("IQR:", iqr, "\n")
+
+```
+```{r}
+#Discriptive statistics for New Zealand (Prevalence of overweight (% of adults))
+mean_prevalence <- mean(nzlV27$VALUE)
+median_prevalence <- median(nzlV27$VALUE)
+std_dev_prevalence <- sd(nzlV27$VALUE)
+min_prevalence <- min(nzlV27$VALUE)
+max_prevalence <- max(nzlV27$VALUE)
+percentiles <- quantile(nzlV27$VALUE, c(0.25, 0.75))
+iqr <- IQR(nzlV27$VALUE)
+
+cat("Mean:", mean_prevalence, "\n")
+cat("Median:", median_prevalence, "\n")
+cat("Standard Deviation:", std_dev_prevalence, "\n")
+cat("Minimum:", min_prevalence, "\n")
+cat("Maximum:", max_prevalence, "\n")
+cat("25th Percentile:", percentiles[1], "\n")
+cat("75th Percentile:", percentiles[2], "\n")
+cat("IQR:", iqr, "\n")
+
+```
+```{r}
+#Discriptive statistics for China (Prevalence of overweight (% of adults)) 
+mean_prevalence <- mean(chnV27$VALUE)
+median_prevalence <- median(chnV27$VALUE)
+std_dev_prevalence <- sd(chnV27$VALUE)
+min_prevalence <- min(chnV27$VALUE)
+max_prevalence <- max(chnV27$VALUE)
+percentiles <- quantile(chnV27$VALUE, c(0.25, 0.75))
+iqr <- IQR(chnV27$VALUE)
+
+cat("Mean:", mean_prevalence, "\n")
+cat("Median:", median_prevalence, "\n")
+cat("Standard Deviation:", std_dev_prevalence, "\n")
+cat("Minimum:", min_prevalence, "\n")
+cat("Maximum:", max_prevalence, "\n")
+cat("25th Percentile:", percentiles[1], "\n")
+cat("75th Percentile:", percentiles[2], "\n")
+cat("IQR:", iqr, "\n")
+
+```
+```{r}
+
+#Discriptive statistics for Australia (Ratio of female to male labor force participation rate (%)(modeled ILO estimate)) 
+mean_ratio <- mean(ausV26$VALUE)
+median_ratio <- median(ausV26$VALUE)
+std_dev_ratio <- sd(ausV26$VALUE)
+min_ratio <- min(ausV26$VALUE)
+max_ratio <- max(ausV26$VALUE)
+percentiles_ratio <- quantile(ausV26$VALUE, c(0.25, 0.75))
+iqr_ratio <- IQR(ausV26$VALUE)
+
+cat("Mean:", mean_ratio, "\n")
+cat("Median:", median_ratio, "\n")
+cat("Standard Deviation:", std_dev_ratio, "\n")
+cat("Minimum:", min_ratio, "\n")
+cat("Maximum:", max_ratio, "\n")
+cat("25th Percentile:", percentiles_ratio[1], "\n")
+cat("75th Percentile:", percentiles_ratio[2], "\n")
+cat("IQR:", iqr_ratio, "\n")
+
+```
+```{r}
+
+#Discriptive statistics for New Zealand (Ratio of female to male labor force participation rate (%)(modeled ILO estimate))
+mean_ratio <- mean(nzlV28$VALUE)
+median_ratio <- median(nzlV28$VALUE)
+std_dev_ratio <- sd(nzlV28$VALUE)
+min_ratio <- min(nzlV28$VALUE)
+max_ratio <- max(nzlV28$VALUE)
+percentiles_ratio <- quantile(nzlV28$VALUE, c(0.25, 0.75))
+iqr_ratio <- IQR(nzlV28$VALUE)
+
+cat("Mean:", mean_ratio, "\n")
+cat("Median:", median_ratio, "\n")
+cat("Standard Deviation:", std_dev_ratio, "\n")
+cat("Minimum:", min_ratio, "\n")
+cat("Maximum:", max_ratio, "\n")
+cat("25th Percentile:", percentiles_ratio[1], "\n")
+cat("75th Percentile:", percentiles_ratio[2], "\n")
+cat("IQR:", iqr_ratio, "\n")
+
+```
+```{r}
+#Discriptive statistics for China (Ratio of female to male labor force participation rate (%)(modeled ILO estimate))
+mean_ratio <- mean(chnV28$VALUE)
+median_ratio <- median(chnV28$VALUE)
+std_dev_ratio <- sd(chnV28$VALUE)
+min_ratio <- min(chnV28$VALUE)
+max_ratio <- max(chnV28$VALUE)
+percentiles_ratio <- quantile(chnV28$VALUE, c(0.25, 0.75))
+iqr_ratio <- IQR(chnV28$VALUE)
+
+cat("Mean:", mean_ratio, "\n")
+cat("Median:", median_ratio, "\n")
+cat("Standard Deviation:", std_dev_ratio, "\n")
+cat("Minimum:", min_ratio, "\n")
+cat("Maximum:", max_ratio, "\n")
+cat("25th Percentile:", percentiles_ratio[1], "\n")
+cat("75th Percentile:", percentiles_ratio[2], "\n")
+cat("IQR:", iqr_ratio, "\n")
+
+```
+```{r}
+#Discriptive statistics for Australia (School enrollment, primary (% gross))
+mean_primary_enrollment <- mean(ausV27$VALUE)
+median_primary_enrollment <- median(ausV27$VALUE)
+std_dev_primary_enrollment <- sd(ausV27$VALUE)
+min_primary_enrollment <- min(ausV27$VALUE)
+max_primary_enrollment <- max(ausV27$VALUE)
+percentiles_primary_enrollment <- quantile(ausV27$VALUE, c(0.25, 0.75))
+iqr_primary_enrollment <- IQR(ausV27$VALUE)
+
+cat("Mean:", mean_primary_enrollment, "\n")
+cat("Median:", median_primary_enrollment, "\n")
+cat("Standard Deviation:", std_dev_primary_enrollment, "\n")
+cat("Minimum:", min_primary_enrollment, "\n")
+cat("Maximum:", max_primary_enrollment, "\n")
+cat("25th Percentile:", percentiles_primary_enrollment[1], "\n")
+cat("75th Percentile:", percentiles_primary_enrollment[2], "\n")
+cat("IQR:", iqr_primary_enrollment, "\n")
+
+```
+```{r}
+#Discriptive statistics for New Zealand (School enrollment, primary (% gross))
+mean_primary_enrollment <- mean(nzlV29$VALUE)
+median_primary_enrollment <- median(nzlV29$VALUE)
+std_dev_primary_enrollment <- sd(nzlV29$VALUE)
+min_primary_enrollment <- min(nzlV29$VALUE)
+max_primary_enrollment <- max(nzlV29$VALUE)
+percentiles_primary_enrollment <- quantile(nzlV29$VALUE, c(0.25, 0.75))
+iqr_primary_enrollment <- IQR(nzlV29$VALUE)
+
+cat("Mean:", mean_primary_enrollment, "\n")
+cat("Median:", median_primary_enrollment, "\n")
+cat("Standard Deviation:", std_dev_primary_enrollment, "\n")
+cat("Minimum:", min_primary_enrollment, "\n")
+cat("Maximum:", max_primary_enrollment, "\n")
+cat("25th Percentile:", percentiles_primary_enrollment[1], "\n")
+cat("75th Percentile:", percentiles_primary_enrollment[2], "\n")
+cat("IQR:", iqr_primary_enrollment, "\n")
+
+```
+```{r}
+#Discriptive statistics for China (School enrollment, primary (% gross)) 
+mean_primary_enrollment <- mean(chnV29$VALUE)
+median_primary_enrollment <- median(chnV29$VALUE)
+std_dev_primary_enrollment <- sd(chnV29$VALUE)
+min_primary_enrollment <- min(chnV29$VALUE)
+max_primary_enrollment <- max(chnV29$VALUE)
+percentiles_primary_enrollment <- quantile(chnV29$VALUE, c(0.25, 0.75))
+iqr_primary_enrollment <- IQR(chnV29$VALUE)
+
+cat("Mean:", mean_primary_enrollment, "\n")
+cat("Median:", median_primary_enrollment, "\n")
+cat("Standard Deviation:", std_dev_primary_enrollment, "\n")
+cat("Minimum:", min_primary_enrollment, "\n")
+cat("Maximum:", max_primary_enrollment, "\n")
+cat("25th Percentile:", percentiles_primary_enrollment[1], "\n")
+cat("75th Percentile:", percentiles_primary_enrollment[2], "\n")
+cat("IQR:", iqr_primary_enrollment, "\n")
+
+```
+```{r}
+#Discriptive statistics for Australia (Patent applications, residents)
+mean_patent_applications <- mean(ausV22$VALUE)
+median_patent_applications <- median(ausV22$VALUE)
+std_dev_patent_applications <- sd(ausV22$VALUE)
+min_patent_applications <- min(ausV22$VALUE)
+max_patent_applications <- max(ausV22$VALUE)
+percentiles_patent_applications <- quantile(ausV22$VALUE, c(0.25, 0.75))
+iqr_patent_applications <- IQR(ausV22$VALUE)
+
+cat("Mean:", mean_patent_applications, "\n")
+cat("Median:", median_patent_applications, "\n")
+cat("Standard Deviation:", std_dev_patent_applications, "\n")
+cat("Minimum:", min_patent_applications, "\n")
+cat("Maximum:", max_patent_applications, "\n")
+cat("25th Percentile:", percentiles_patent_applications[1], "\n")
+cat("75th Percentile:", percentiles_patent_applications[2], "\n")
+cat("IQR:", iqr_patent_applications, "\n")
+
+```
+```{r}
+#Discriptive statistics for New Zealand (Patent applications, residents)
+mean_patent_applications <- mean(nzlV24$VALUE)
+median_patent_applications <- median(nzlV24$VALUE)
+std_dev_patent_applications <- sd(nzlV24$VALUE)
+min_patent_applications <- min(nzlV24$VALUE)
+max_patent_applications <- max(nzlV24$VALUE)
+percentiles_patent_applications <- quantile(nzlV24$VALUE, c(0.25, 0.75))
+iqr_patent_applications <- IQR(nzlV24$VALUE)
+
+cat("Mean:", mean_patent_applications, "\n")
+cat("Median:", median_patent_applications, "\n")
+cat("Standard Deviation:", std_dev_patent_applications, "\n")
+cat("Minimum:", min_patent_applications, "\n")
+cat("Maximum:", max_patent_applications, "\n")
+cat("25th Percentile:", percentiles_patent_applications[1], "\n")
+cat("75th Percentile:", percentiles_patent_applications[2], "\n")
+cat("IQR:", iqr_patent_applications, "\n")
+
+```
+```{r}
+#Discriptive statistics for China (Patent applications, residents)
+mean_patent_applications <- mean(chnV24$VALUE)
+median_patent_applications <- median(chnV24$VALUE)
+std_dev_patent_applications <- sd(chnV24$VALUE)
+min_patent_applications <- min(chnV24$VALUE)
+max_patent_applications <- max(chnV24$VALUE)
+percentiles_patent_applications <- quantile(chnV24$VALUE, c(0.25, 0.75))
+iqr_patent_applications <- IQR(chnV24$VALUE)
+
+cat("Mean:", mean_patent_applications, "\n")
+cat("Median:", median_patent_applications, "\n")
+cat("Standard Deviation:", std_dev_patent_applications, "\n")
+cat("Minimum:", min_patent_applications, "\n")
+cat("Maximum:", max_patent_applications, "\n")
+cat("25th Percentile:", percentiles_patent_applications[1], "\n")
+cat("75th Percentile:", percentiles_patent_applications[2], "\n")
+cat("IQR:", iqr_patent_applications, "\n")
+
+```
+```{r}
+#Discriptive statistics for Australia (Population ages 65 and above (% of total population))
+mean_population_65plus <- mean(ausV23$VALUE)
+median_population_65plus <- median(ausV23$VALUE)
+std_dev_population_65plus <- sd(ausV23$VALUE)
+min_population_65plus <- min(ausV23$VALUE)
+max_population_65plus <- max(ausV23$VALUE)
+percentiles_population_65plus <- quantile(ausV23$VALUE, c(0.25, 0.75))
+iqr_population_65plus <- IQR(ausV23$VALUE)
+
+cat("Mean:", mean_population_65plus, "\n")
+cat("Median:", median_population_65plus, "\n")
+cat("Standard Deviation:", std_dev_population_65plus, "\n")
+cat("Minimum:", min_population_65plus, "\n")
+cat("Maximum:", max_population_65plus, "\n")
+cat("25th Percentile:", percentiles_population_65plus[1], "\n")
+cat("75th Percentile:", percentiles_population_65plus[2], "\n")
+cat("IQR:", iqr_population_65plus, "\n")
+
+
+```
+```{r}
+#Discriptive statistics for New Zealand (Population ages 65 and above (% of total population))
+mean_population_65plus <- mean(nzlV25$VALUE)
+median_population_65plus <- median(nzlV25$VALUE)
+std_dev_population_65plus <- sd(nzlV25$VALUE)
+min_population_65plus <- min(nzlV25$VALUE)
+max_population_65plus <- max(nzlV25$VALUE)
+percentiles_population_65plus <- quantile(nzlV25$VALUE, c(0.25, 0.75))
+iqr_population_65plus <- IQR(nzlV25$VALUE)
+
+cat("Mean:", mean_population_65plus, "\n")
+cat("Median:", median_population_65plus, "\n")
+cat("Standard Deviation:", std_dev_population_65plus, "\n")
+cat("Minimum:", min_population_65plus, "\n")
+cat("Maximum:", max_population_65plus, "\n")
+cat("25th Percentile:", percentiles_population_65plus[1], "\n")
+cat("75th Percentile:", percentiles_population_65plus[2], "\n")
+cat("IQR:", iqr_population_65plus, "\n")
+
+```
+```{r}
+#Discriptive statistics for China (Population ages 65 and above (% of total population))
+mean_population_65plus <- mean(chnV25$VALUE)
+median_population_65plus <- median(chnV25$VALUE)
+std_dev_population_65plus <- sd(chnV25$VALUE)
+min_population_65plus <- min(chnV25$VALUE)
+max_population_65plus <- max(chnV25$VALUE)
+percentiles_population_65plus <- quantile(chnV25$VALUE, c(0.25, 0.75))
+iqr_population_65plus <- IQR(chnV25$VALUE)
+
+cat("Mean:", mean_population_65plus, "\n")
+cat("Median:", median_population_65plus, "\n")
+cat("Standard Deviation:", std_dev_population_65plus, "\n")
+cat("Minimum:", min_population_65plus, "\n")
+cat("Maximum:", max_population_65plus, "\n")
+cat("25th Percentile:", percentiles_population_65plus[1], "\n")
+cat("75th Percentile:", percentiles_population_65plus[2], "\n")
+cat("IQR:", iqr_population_65plus, "\n")
+```
+```{r}
+#Discriptive statistics for Australia (Adjusted savings: natural resources depletion (% of GNI))  
+mean_depletion <- mean(ausV2$VALUE)
+median_depletion <- median(ausV2$VALUE)
+std_dev_depletion <- sd(ausV2$VALUE)
+min_depletion <- min(ausV2$VALUE)
+max_depletion <- max(ausV2$VALUE)
+percentiles_depletion <- quantile(ausV2$VALUE, c(0.25, 0.75))
+iqr_depletion <- IQR(ausV2$VALUE)
+
+cat("Mean:", mean_depletion, "\n")
+cat("Median:", median_depletion, "\n")
+cat("Standard Deviation:", std_dev_depletion, "\n")
+cat("Minimum:", min_depletion, "\n")
+cat("Maximum:", max_depletion, "\n")
+cat("25th Percentile:", percentiles_depletion[1], "\n")
+cat("75th Percentile:", percentiles_depletion[2], "\n")
+cat("IQR:", iqr_depletion, "\n")
+
+```
+```{r}
+#Discriptive statistics for New Zealand (Adjusted savings: natural resources depletion (% of GNI))
+mean_depletion <- mean(nzlV2$VALUE)
+median_depletion <- median(nzlV2$VALUE)
+std_dev_depletion <- sd(nzlV2$VALUE)
+min_depletion <- min(nzlV2$VALUE)
+max_depletion <- max(nzlV2$VALUE)
+percentiles_depletion <- quantile(nzlV2$VALUE, c(0.25, 0.75))
+iqr_depletion <- IQR(nzlV2$VALUE)
+
+cat("Mean:", mean_depletion, "\n")
+cat("Median:", median_depletion, "\n")
+cat("Standard Deviation:", std_dev_depletion, "\n")
+cat("Minimum:", min_depletion, "\n")
+cat("Maximum:", max_depletion, "\n")
+cat("25th Percentile:", percentiles_depletion[1], "\n")
+cat("75th Percentile:", percentiles_depletion[2], "\n")
+cat("IQR:", iqr_depletion, "\n")
+
+```
+```{r}
+#Discriptive statistics for China (Adjusted savings: natural resources depletion (% of GNI))
+mean_depletion <- mean(chnV1$VALUE)
+median_depletion <- median(chnV1$VALUE)
+std_dev_depletion <- sd(chnV1$VALUE)
+min_depletion <- min(chnV1$VALUE)
+max_depletion <- max(chnV1$VALUE)
+percentiles_depletion <- quantile(chnV1$VALUE, c(0.25, 0.75))
+iqr_depletion <- IQR(chnV1$VALUE)
+
+cat("Mean:", mean_depletion, "\n")
+cat("Median:", median_depletion, "\n")
+cat("Standard Deviation:", std_dev_depletion, "\n")
+cat("Minimum:", min_depletion, "\n")
+cat("Maximum:", max_depletion, "\n")
+cat("25th Percentile:", percentiles_depletion[1], "\n")
+cat("75th Percentile:", percentiles_depletion[2], "\n")
+cat("IQR:", iqr_depletion, "\n")
+
+```
+```{r}
+#Descriptive statistics for Australia (Population density (people per sq. km of land area))
+mean_population_density <- mean(ausV24$VALUE)
+median_population_density <- median(ausV24$VALUE)
+std_dev_population_density <- sd(ausV24$VALUE)
+min_population_density <- min(ausV24$VALUE)
+max_population_density <- max(ausV24$VALUE)
+percentiles_population_density <- quantile(ausV24$VALUE, c(0.25, 0.75))
+iqr_population_density <- IQR(ausV24$VALUE)
+
+cat("Mean:", mean_population_density, "\n")
+cat("Median:", median_population_density, "\n")
+cat("Standard Deviation:", std_dev_population_density, "\n")
+cat("Minimum:", min_population_density, "\n")
+cat("Maximum:", max_population_density, "\n")
+cat("25th Percentile:", percentiles_population_density[1], "\n")
+cat("75th Percentile:", percentiles_population_density[2], "\n")
+cat("IQR:", iqr_population_density, "\n")
+```
+```{r}
+#Descriptive statistics for New Zealand (Population density (people per sq. km of land area))
+mean_population_density <- mean(nzlV26$VALUE)
+median_population_density <- median(nzlV26$VALUE)
+std_dev_population_density <- sd(nzlV26$VALUE)
+min_population_density <- min(nzlV26$VALUE)
+max_population_density <- max(nzlV26$VALUE)
+percentiles_population_density <- quantile(nzlV26$VALUE, c(0.25, 0.75))
+iqr_population_density <- IQR(nzlV26$VALUE)
+
+cat("Mean:", mean_population_density, "\n")
+cat("Median:", median_population_density, "\n")
+cat("Standard Deviation:", std_dev_population_density, "\n")
+cat("Minimum:", min_population_density, "\n")
+cat("Maximum:", max_population_density, "\n")
+cat("25th Percentile:", percentiles_population_density[1], "\n")
+cat("75th Percentile:", percentiles_population_density[2], "\n")
+cat("IQR:", iqr_population_density, "\n")
+```
+```{r}
+#Descriptive statistics for China (Population density (people per sq. km of land area))
+mean_population_density <- mean(chnV26$VALUE)
+median_population_density <- median(chnV26$VALUE)
+std_dev_population_density <- sd(chnV26$VALUE)
+min_population_density <- min(chnV26$VALUE)
+max_population_density <- max(chnV26$VALUE)
+percentiles_population_density <- quantile(chnV26$VALUE, c(0.25, 0.75))
+iqr_population_density <- IQR(chnV26$VALUE)
+
+cat("Mean:", mean_population_density, "\n")
+cat("Median:", median_population_density, "\n")
+cat("Standard Deviation:", std_dev_population_density, "\n")
+cat("Minimum:", min_population_density, "\n")
+cat("Maximum:", max_population_density, "\n")
+cat("25th Percentile:", percentiles_population_density[1], "\n")
+cat("75th Percentile:", percentiles_population_density[2], "\n")
+cat("IQR:", iqr_population_density, "\n")
+```
+```{r}
+#Descriptive statistics for Australia ((Life expectancy at birth, total (years))
+mean_life_expectancy <- mean(ausV19$VALUE)
+median_life_expectancy <- median(ausV19$VALUE)
+std_dev_life_expectancy <- sd(ausV19$VALUE)
+min_life_expectancy <- min(ausV19$VALUE)
+max_life_expectancy <- max(ausV19$VALUE)
+percentiles_life_expectancy <- quantile(ausV19$VALUE, c(0.25, 0.75))
+iqr_life_expectancy <- IQR(ausV19$VALUE)
+
+cat("Mean:", mean_life_expectancy, "\n")
+cat("Median:", median_life_expectancy, "\n")
+cat("Standard Deviation:", std_dev_life_expectancy, "\n")
+cat("Minimum:", min_life_expectancy, "\n")
+cat("Maximum:", max_life_expectancy, "\n")
+cat("25th Percentile:", percentiles_life_expectancy[1], "\n")
+cat("75th Percentile:", percentiles_life_expectancy[2], "\n")
+cat("IQR:", iqr_life_expectancy, "\n")
+```
+```{r}
+#Descriptive statistics for New Zealand ((Life expectancy at birth, total (years))
+mean_life_expectancy <- mean(nzlV21$VALUE)
+median_life_expectancy <- median(nzlV21$VALUE)
+std_dev_life_expectancy <- sd(nzlV21$VALUE)
+min_life_expectancy <- min(nzlV21$VALUE)
+max_life_expectancy <- max(nzlV21$VALUE)
+percentiles_life_expectancy <- quantile(nzlV21$VALUE, c(0.25, 0.75))
+iqr_life_expectancy <- IQR(nzlV21$VALUE)
+
+cat("Mean:", mean_life_expectancy, "\n")
+cat("Median:", median_life_expectancy, "\n")
+cat("Standard Deviation:", std_dev_life_expectancy, "\n")
+cat("Minimum:", min_life_expectancy, "\n")
+cat("Maximum:", max_life_expectancy, "\n")
+cat("25th Percentile:", percentiles_life_expectancy[1], "\n")
+cat("75th Percentile:", percentiles_life_expectancy[2], "\n")
+cat("IQR:", iqr_life_expectancy, "\n")
+```
+```{r}
+#Descriptive statistics for China ((Life expectancy at birth, total (years))
+mean_life_expectancy <- mean(chnV21$VALUE)
+median_life_expectancy <- median(chnV21$VALUE)
+std_dev_life_expectancy <- sd(chnV21$VALUE)
+min_life_expectancy <- min(chnV21$VALUE)
+max_life_expectancy <- max(chnV21$VALUE)
+percentiles_life_expectancy <- quantile(chnV21$VALUE, c(0.25, 0.75))
+iqr_life_expectancy <- IQR(chnV21$VALUE)
+
+cat("Mean:", mean_life_expectancy, "\n")
+cat("Median:", median_life_expectancy, "\n")
+cat("Standard Deviation:", std_dev_life_expectancy, "\n")
+cat("Minimum:", min_life_expectancy, "\n")
+cat("Maximum:", max_life_expectancy, "\n")
+cat("25th Percentile:", percentiles_life_expectancy[1], "\n")
+cat("75th Percentile:", percentiles_life_expectancy[2], "\n")
+cat("IQR:", iqr_life_expectancy, "\n")
+```
+```{r}
+#Descriptive statistics for Australia (Mortality rate, under-5 (per 1,000 live births))
+mean_under5_mortality <- mean(ausV20$VALUE)
+median_under5_mortality <- median(ausV20$VALUE)
+std_dev_under5_mortality <- sd(ausV20$VALUE)
+min_under5_mortality <- min(ausV20$VALUE)
+max_under5_mortality <- max(ausV20$VALUE)
+percentiles_under5_mortality <- quantile(ausV20$VALUE, c(0.25, 0.75))
+iqr_under5_mortality <- IQR(ausV20$VALUE)
+
+cat("Mean:", mean_under5_mortality, "\n")
+cat("Median:", median_under5_mortality, "\n")
+cat("Standard Deviation:", std_dev_under5_mortality, "\n")
+cat("Minimum:", min_under5_mortality, "\n")
+cat("Maximum:", max_under5_mortality, "\n")
+cat("25th Percentile:", percentiles_under5_mortality[1], "\n")
+cat("75th Percentile:", percentiles_under5_mortality[2], "\n")
+cat("IQR:", iqr_under5_mortality, "\n")
+```
+```{r}
+#Descriptive statistics for New Zealand (Mortality rate, under-5 (per 1,000 live births))
+mean_under5_mortality <- mean(nzlV22$VALUE)
+median_under5_mortality <- median(nzlV22$VALUE)
+std_dev_under5_mortality <- sd(nzlV22$VALUE)
+min_under5_mortality <- min(nzlV22$VALUE)
+max_under5_mortality <- max(nzlV22$VALUE)
+percentiles_under5_mortality <- quantile(nzlV22$VALUE, c(0.25, 0.75))
+iqr_under5_mortality <- IQR(nzlV22$VALUE)
+
+cat("Mean:", mean_under5_mortality, "\n")
+cat("Median:", median_under5_mortality, "\n")
+cat("Standard Deviation:", std_dev_under5_mortality, "\n")
+cat("Minimum:", min_under5_mortality, "\n")
+cat("Maximum:", max_under5_mortality, "\n")
+cat("25th Percentile:", percentiles_under5_mortality[1], "\n")
+cat("75th Percentile:", percentiles_under5_mortality[2], "\n")
+cat("IQR:", iqr_under5_mortality, "\n")
+```
+```{r}
+#Descriptive statistics for China (Mortality rate, under-5 (per 1,000 live births))
+mean_under5_mortality <- mean(chnV22$VALUE)
+median_under5_mortality <- median(chnV22$VALUE)
+std_dev_under5_mortality <- sd(chnV22$VALUE)
+min_under5_mortality <- min(chnV22$VALUE)
+max_under5_mortality <- max(chnV22$VALUE)
+percentiles_under5_mortality <- quantile(chnV22$VALUE, c(0.25, 0.75))
+iqr_under5_mortality <- IQR(chnV22$VALUE)
+
+cat("Mean:", mean_under5_mortality, "\n")
+cat("Median:", median_under5_mortality, "\n")
+cat("Standard Deviation:", std_dev_under5_mortality, "\n")
+cat("Minimum:", min_under5_mortality, "\n")
+cat("Maximum:", max_under5_mortality, "\n")
+cat("25th Percentile:", percentiles_under5_mortality[1], "\n")
+cat("75th Percentile:", percentiles_under5_mortality[2], "\n")
+cat("IQR:", iqr_under5_mortality, "\n")
+```
+```{r}
+#Descriptive statistics for Australia (Net migration)
+mean_net_migration <- mean(ausV21$VALUE)
+median_net_migration <- median(ausV21$VALUE)
+std_dev_net_migration <- sd(ausV21$VALUE)
+min_net_migration <- min(ausV21$VALUE)
+max_net_migration <- max(ausV21$VALUE)
+percentiles_net_migration <- quantile(ausV21$VALUE, c(0.25, 0.75))
+iqr_net_migration <- IQR(ausV21$VALUE)
+
+cat("Mean:", mean_net_migration, "\n")
+cat("Median:", median_net_migration, "\n")
+cat("Standard Deviation:", std_dev_net_migration, "\n")
+cat("Minimum:", min_net_migration, "\n")
+cat("Maximum:", max_net_migration, "\n")
+cat("25th Percentile:", percentiles_net_migration[1], "\n")
+cat("75th Percentile:", percentiles_net_migration[2], "\n")
+cat("IQR:", iqr_net_migration, "\n")
+```
+```{r}
+#Descriptive statistics for New Zealnad (Net migration)
+mean_net_migration <- mean(nzlV23$VALUE)
+median_net_migration <- median(nzlV23$VALUE)
+std_dev_net_migration <- sd(nzlV23$VALUE)
+min_net_migration <- min(nzlV23$VALUE)
+max_net_migration <- max(nzlV23$VALUE)
+percentiles_net_migration <- quantile(nzlV23$VALUE, c(0.25, 0.75))
+iqr_net_migration <- IQR(nzlV23$VALUE)
+
+cat("Mean:", mean_net_migration, "\n")
+cat("Median:", median_net_migration, "\n")
+cat("Standard Deviation:", std_dev_net_migration, "\n")
+cat("Minimum:", min_net_migration, "\n")
+cat("Maximum:", max_net_migration, "\n")
+cat("25th Percentile:", percentiles_net_migration[1], "\n")
+cat("75th Percentile:", percentiles_net_migration[2], "\n")
+cat("IQR:", iqr_net_migration, "\n")
+```
+```{r}
+#Descriptive statistics for China (Net migration)
+mean_net_migration <- mean(chnV23$VALUE)
+median_net_migration <- median(chnV23$VALUE)
+std_dev_net_migration <- sd(chnV23$VALUE)
+min_net_migration <- min(chnV23$VALUE)
+max_net_migration <- max(chnV23$VALUE)
+percentiles_net_migration <- quantile(chnV23$VALUE, c(0.25, 0.75))
+iqr_net_migration <- IQR(chnV23$VALUE)
+
+cat("Mean:", mean_net_migration, "\n")
+cat("Median:", median_net_migration, "\n")
+cat("Standard Deviation:", std_dev_net_migration, "\n")
+cat("Minimum:", min_net_migration, "\n")
+cat("Maximum:", max_net_migration, "\n")
+cat("25th Percentile:", percentiles_net_migration[1], "\n")
+cat("75th Percentile:", percentiles_net_migration[2], "\n")
+cat("IQR:", iqr_net_migration, "\n")
+```
+```{r}
+#Descriptive statistics for Australia (Electricity production from coal sources (% of total))
+mean_coal_electricity <- mean(ausV7$VALUE)
+median_coal_electricity <- median(ausV7$VALUE)
+std_dev_coal_electricity <- sd(ausV7$VALUE)
+min_coal_electricity <- min(ausV7$VALUE)
+max_coal_electricity <- max(ausV7$VALUE)
+percentiles_coal_electricity <- quantile(ausV7$VALUE, c(0.25, 0.75))
+iqr_coal_electricity <- IQR(ausV7$VALUE)
+
+cat("Mean:", mean_coal_electricity, "\n")
+cat("Median:", median_coal_electricity, "\n")
+cat("Standard Deviation:", std_dev_coal_electricity, "\n")
+cat("Minimum:", min_coal_electricity, "\n")
+cat("Maximum:", max_coal_electricity, "\n")
+cat("25th Percentile:", percentiles_coal_electricity[1], "\n")
+cat("75th Percentile:", percentiles_coal_electricity[2], "\n")
+cat("IQR:", iqr_coal_electricity, "\n")
+```
+```{r}
+#Descriptive statistics for New Zealand (Electricity production from coal sources (% of total))
+mean_coal_electricity <- mean(nzlV8$VALUE)
+median_coal_electricity <- median(nzlV8$VALUE)
+std_dev_coal_electricity <- sd(nzlV8$VALUE)
+min_coal_electricity <- min(nzlV8$VALUE)
+max_coal_electricity <- max(nzlV8$VALUE)
+percentiles_coal_electricity <- quantile(nzlV8$VALUE, c(0.25, 0.75))
+iqr_coal_electricity <- IQR(nzlV8$VALUE)
+
+cat("Mean:", mean_coal_electricity, "\n")
+cat("Median:", median_coal_electricity, "\n")
+cat("Standard Deviation:", std_dev_coal_electricity, "\n")
+cat("Minimum:", min_coal_electricity, "\n")
+cat("Maximum:", max_coal_electricity, "\n")
+cat("25th Percentile:", percentiles_coal_electricity[1], "\n")
+cat("75th Percentile:", percentiles_coal_electricity[2], "\n")
+cat("IQR:", iqr_coal_electricity, "\n")
+```
+```{r}
+#Descriptive statistics for China (Electricity production from coal sources (% of total))
+mean_coal_electricity <- mean(chnV7$VALUE)
+median_coal_electricity <- median(chnV7$VALUE)
+std_dev_coal_electricity <- sd(chnV7$VALUE)
+min_coal_electricity <- min(chnV7$VALUE)
+max_coal_electricity <- max(chnV7$VALUE)
+percentiles_coal_electricity <- quantile(chnV7$VALUE, c(0.25, 0.75))
+iqr_coal_electricity <- IQR(chnV7$VALUE)
+
+cat("Mean:", mean_coal_electricity, "\n")
+cat("Median:", median_coal_electricity, "\n")
+cat("Standard Deviation:", std_dev_coal_electricity, "\n")
+cat("Minimum:", min_coal_electricity, "\n")
+cat("Maximum:", max_coal_electricity, "\n")
+cat("25th Percentile:", percentiles_coal_electricity[1], "\n")
+cat("75th Percentile:", percentiles_coal_electricity[2], "\n")
+cat("IQR:", iqr_coal_electricity, "\n")
+```
+```{r}
+#Prevalence of overweight (% of adults) 
+library('ggplot2')
+combined_data_prevelenceOfOverweight <- rbind(
+  transform(ausV25, country = "Australia"),
+  transform(nzlV27, country = "New Zealand"),
+  transform(chnV27, country = "China")
+)
+
+ggplot(combined_data_prevelenceOfOverweight, aes(x = country, y = VALUE)) +geom_boxplot() +labs(title = "Boxplots for Prevalence of overweight",x = "Country", y = "Total as a percentage of adults") 
+ggplot(combined_data_prevelenceOfOverweight)+aes(x=VALUE)+labs(title = "Prevalence of overweight in all 3 countries")+geom_density()
+```
+```{r}
+#Ratio of female to male labor force participation rate (%) (modeled ILO estimate) 
+library('ggplot2')
+combined_data_Ratio_labor_force_participation_rate <- rbind(
+  transform(ausV26, country = "Australia"),
+  transform(nzlV28, country = "New Zealand"),
+  transform(chnV28, country = "China")
+)
+
+ggplot(combined_data_Ratio_labor_force_participation_rate, aes(x = YEAR, y = VALUE, group = country, color = country)) +geom_line() +geom_point() +labs(title = "Ratio of female to male laborforce participation rate",x = "YEAR",y = "Total as a percentage")
+```
+```{r}
+#School enrollment, primary (% gross) 
+library('ggplot2')
+qqnorm(ausV27$VALUE);qqline(ausV27$VALUE)
+qqnorm(nzlV29$VALUE);qqline(nzlV29$VALUE)
+qqnorm(chnV29$VALUE);qqline(chnV29$VALUE)
+```
+```{r}
+#Patent applications, residents
+library('ggplot2')
+combined_data_Patent_applications_residents  <- rbind(
+  transform(ausV27, country = "Australia"),
+  transform(nzlV29, country = "New Zealand"),
+  transform(chnV29, country = "China")
+)
+
+ggplot(combined_data_Patent_applications_residents, aes(x = country, y = VALUE)) +geom_boxplot() +labs(title = "Boxplots for Patent applications,residents",x = "Country", y = "Count") 
+ggplot(combined_data_Patent_applications_residents)+aes(x=VALUE)+labs(title = "Patent applications, residents in all 3 countries")+geom_density()
+```
+```{r}
+#Population ages 65 and above (% of total population) 
+library('ggplot2')
+qqnorm(ausV23$VALUE);qqline(ausV23$VALUE)
+qqnorm(nzlV25$VALUE);qqline(nzlV25$VALUE)
+qqnorm(chnV25$VALUE);qqline(chnV25$VALUE)
+```
+```{r}
+#Adjusted savings: natural resources depletion (% of GNI)
+library('ggplot2')
+combined_data_Adjusted_savings_naturalResources  <- rbind(
+  transform(ausV2, country = "Australia"),
+  transform(nzlV2, country = "New Zealand"),
+  transform(chnV1, country = "China")
+)
+ausV2
+ggplot(combined_data_Adjusted_savings_naturalResources, aes(x = country, y = VALUE)) +geom_boxplot() +labs(title = "Boxplots for Adjusted savings:natural resources depletion ",x = "Country", y = "Percentage of GNI") 
+ggplot(combined_data_Adjusted_savings_naturalResources, aes(x = YEAR, y = VALUE, group = country, color = country)) +geom_line() +geom_point() +labs(title = "Adjusted savings: natural resources depletion",x = "YEAR",y = "Percentage of GNI")
+```
+```{r}
+#Population density (people per sq. km of land area)
+library('ggplot2')
+ggplot(ausV24)+aes(x=VALUE)+labs(title = "Population density in Australia")+geom_density()
+ggplot(nzlV26)+aes(x=VALUE)+labs(title = "Population density in New Zealand")+geom_density()
+ggplot(chnV26)+aes(x=VALUE)+labs(title = "Population density in China")+geom_density()
+```
+```{r}
+#Life expectancy at birth, total (years)
+library('ggplot2')
+hist(ausV19$VALUE,main = "Life expectancy at birth in Australia ", xlab="Number of years",col="lightblue",axes=TRUE)
+hist(nzlV21$VALUE,main = "Life expectancy at birth in New Zealand ",xlab="Number of years",col="pink",axes=TRUE)
+hist(chnV21$VALUE,main = "Life expectancy at birth in China",xlab="Number of years",col="lightgreen",axes=TRUE)
+```
+```{r}
+#Mortality rate, under-5 (per 1,000 live births)
+library('ggplot2')
+combined_data_Mortality_Rate  <- rbind(
+  transform(ausV20, country = "Australia"),
+  transform(nzlV22, country = "New Zealand"),
+  transform(chnV22, country = "China")
+)
+
+ggplot(combined_data_Mortality_Rate, aes(x = country, y = VALUE)) +geom_boxplot() +labs(title = "Boxplots for Mortality rate, under-5",x = "Country", y = "As per 1,000 live births") 
+ggplot(combined_data_Mortality_Rate)+aes(x=VALUE)+labs(title = "Mortality rate, under-5 in all 3 countries")+geom_density()
+```
+```{r}
+#Net migration
+library('ggplot2')
+qqnorm(ausV21$VALUE);qqline(ausV21$VALUE)
+qqnorm(nzlV23$VALUE);qqline(nzlV23$VALUE)
+qqnorm(chnV23$VALUE);qqline(chnV23$VALUE)
+```
+```{r}
+#Electricity production from coal sources (% of total) 
+library('ggplot2')
+ggplot(ausV7)+aes(x=VALUE)+labs(title = "Electricity production from coal sources in Australia")+geom_density()
+ggplot(nzlV8)+aes(x=VALUE)+labs(title = "Electricity production from coal sources in New Zealand")+geom_density()
+ggplot(chnV7)+aes(x=VALUE)+labs(title = "Electricity production from coal sources in China")+geom_density()
+```
+
+
+
+

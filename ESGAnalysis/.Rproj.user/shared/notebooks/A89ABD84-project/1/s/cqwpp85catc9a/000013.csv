@@ -1,0 +1,8 @@
+"0","#Adjusted savings: natural resources depletion (% of GNI)"
+"0","library('ggplot2')"
+"0","combined_data_Adjusted_savings_naturalResources  <- rbind("
+"0","  transform(ausV2, country = ""Australia""),"
+"0","  transform(nzlV2, country = ""New Zealand""),"
+"0","  transform(chnV1, country = ""China"")"
+"0",")"
+"0","ausV2"

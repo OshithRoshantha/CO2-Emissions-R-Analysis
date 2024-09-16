@@ -1,0 +1,4 @@
+"0","library(psych)"
+"0",""
+"0","# Provide descriptive statistics for reshaped data"
+"0","describe(reshaped_data)"

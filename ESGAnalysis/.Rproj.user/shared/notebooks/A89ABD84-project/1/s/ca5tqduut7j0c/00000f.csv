@@ -1,0 +1,3 @@
+"0","#Net migration"
+"0","library('ggplot2')"
+"0","qqnorm(ausV21$VALUE);qqline(ausV21$VALUE)"

@@ -1,0 +1,3 @@
+"0","#Electricity production from coal sources (% of total) "
+"0","library('ggplot2')"
+"0","ggplot(ausV7)+aes(x=VALUE)+labs(title = ""Electricity production from coal sources in Australia"")+geom_density()"

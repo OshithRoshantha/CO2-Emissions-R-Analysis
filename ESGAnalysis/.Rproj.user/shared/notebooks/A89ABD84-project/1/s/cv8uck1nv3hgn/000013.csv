@@ -1,0 +1,1 @@
+"0","ggplot(chnV7)+aes(x=VALUE)+labs(title = ""Electricity production from coal sources in China"")+geom_density()"

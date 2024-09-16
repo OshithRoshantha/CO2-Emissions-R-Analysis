@@ -1,0 +1,4 @@
+"0","#Country Code,Indicator & Data value(1960:2023)"
+"0","ausData<-fData[fData$Country.Code=='AUS',-c(1,4)]"
+"0","nzlData<-fData[fData$Country.Code=='NZL',-c(1,4)]"
+"0","chnData<-fData[fData$Country.Code=='CHN',-c(1,4)]"

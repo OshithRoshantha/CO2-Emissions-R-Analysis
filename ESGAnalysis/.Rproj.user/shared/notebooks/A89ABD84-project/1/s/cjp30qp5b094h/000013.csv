@@ -1,0 +1,1 @@
+"0","hist(chnV21$VALUE,main = ""Life expectancy at birth in China"",xlab=""Number of years"",col=""lightgreen"",axes=TRUE)"

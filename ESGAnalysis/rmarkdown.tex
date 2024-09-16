@@ -1,0 +1,446 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={CO2 emissions (metric tons per capita)},
+  pdfauthor={Oshith Roshantha},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{CO2 emissions (metric tons per capita)}
+\author{Oshith Roshantha}
+\date{2024-09-16}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load and filter the dataset}
+\CommentTok{\# Read the CSV file into a dataframe}
+\NormalTok{filtered\_df }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"D:/OSHITH/R/ESGCSV.csv"}\NormalTok{)}
+
+\CommentTok{\# Filter data for Sri Lanka and Bangladesh for specific indicators}
+\NormalTok{filtered\_df }\OtherTok{\textless{}{-}}\NormalTok{ filtered\_df[}
+\NormalTok{  (filtered\_df}\SpecialCharTok{$}\NormalTok{Country.Name }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Sri Lanka\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Bangladesh\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\&} 
+\NormalTok{     filtered\_df}\SpecialCharTok{$}\NormalTok{Indicator.Code }\SpecialCharTok{==} \StringTok{\textquotesingle{}EN.ATM.CO2E.PC\textquotesingle{}}\NormalTok{) }\SpecialCharTok{|}
+\NormalTok{  (filtered\_df}\SpecialCharTok{$}\NormalTok{Country.Name }\SpecialCharTok{==} \StringTok{\textquotesingle{}Sri Lanka\textquotesingle{}} \SpecialCharTok{\&} 
+\NormalTok{     filtered\_df}\SpecialCharTok{$}\NormalTok{Indicator.Code }\SpecialCharTok{==} \StringTok{\textquotesingle{}NY.GDP.MKTP.KD.ZG\textquotesingle{}}\NormalTok{), }
+\NormalTok{]}
+
+\FunctionTok{head}\NormalTok{(filtered\_df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       Country.Name Country.Code                         Indicator.Name
+## 4200    Bangladesh          BGD CO2 emissions (metric tons per capita)
+## 14637    Sri Lanka          LKA CO2 emissions (metric tons per capita)
+## 14650    Sri Lanka          LKA                  GDP growth (annual %)
+##          Indicator.Code X1960 X1961   X1962    X1963    X1964    X1965    X1966
+## 4200     EN.ATM.CO2E.PC    NA    NA      NA       NA       NA       NA       NA
+## 14637    EN.ATM.CO2E.PC    NA    NA      NA       NA       NA       NA       NA
+## 14650 NY.GDP.MKTP.KD.ZG    NA    NA 3.81802 2.516749 3.906434 2.536954 5.023789
+##          X1967    X1968   X1969   X1970    X1971      X1972    X1973    X1974
+## 4200        NA       NA      NA      NA       NA         NA       NA       NA
+## 14637       NA       NA      NA      NA       NA         NA       NA       NA
+## 14650 6.439024 5.801094 7.71682 3.84663 1.306905 -0.4104799 7.057399 3.845831
+##          X1975    X1976   X1977    X1978    X1979    X1980    X1981    X1982
+## 4200        NA       NA      NA       NA       NA       NA       NA       NA
+## 14637       NA       NA      NA       NA       NA       NA       NA       NA
+## 14650 6.126233 3.335107 5.10059 5.653837 6.403557 5.846027 5.699525 4.141496
+##          X1983    X1984    X1985    X1986    X1987    X1988    X1989     X1990
+## 4200        NA       NA       NA       NA       NA       NA       NA 0.1075500
+## 14637       NA       NA       NA       NA       NA       NA       NA 0.2231562
+## 14650 4.813991 5.099147 4.999406 4.355547 1.725611 2.472685 2.299301 6.3999953
+##            X1991     X1992     X1993     X1994     X1995     X1996     X1997
+## 4200  0.09914389 0.1062574 0.1108141 0.1171428 0.1405383 0.1403549 0.1554492
+## 14637 0.22882772 0.2977851 0.2856171 0.3201689 0.3199767 0.4560129 0.4520811
+## 14650 4.59998724 4.3999913 6.9000633 5.5999187 5.5000852 3.7999672 6.4053997
+##           X1998     X1999    X2000      X2001     X2002     X2003     X2004
+## 4200  0.1548004 0.1586172 0.160122  0.1946868 0.2034012 0.2097372 0.2199550
+## 14637 0.4637947 0.5086283 0.582056  0.5733532 0.5957498 0.6430184 0.6602317
+## 14650 4.6984230 4.3005405 6.000033 -1.5454081 3.9646757 5.9402691 5.4450613
+##           X2005     X2006     X2007     X2008     X2009     X2010     X2011
+## 4200  0.2321354 0.2517219 0.2635866 0.2859333 0.3050301 0.3402333 0.3615574
+## 14637 0.7108110 0.6242808 0.6769179 0.6315156 0.6000934 0.6324486 0.7387531
+## 14650 6.2417480 7.6682919 6.7968261 5.9500881 3.5389121 8.0159674 8.6694830
+##           X2012     X2013     X2014     X2015     X2016     X2017     X2018
+## 4200  0.3878292 0.4087882 0.4251895 0.4635171 0.5077393 0.5417878 0.5861576
+## 14637 0.8298177 0.6837293 0.8219749 0.9017750 1.0813100 1.0759614 1.0009368
+## 14650 8.6321814 4.0517463 6.3779789 4.2059555 5.0536249 6.4606813 2.3100843
+##            X2019      X2020    X2021     X2022 X2023
+## 4200   0.5597337  0.5106476       NA        NA    NA
+## 14637  1.0745264  0.9966832       NA        NA    NA
+## 14650 -0.2204839 -4.6245158 3.512225 -7.823977    NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Clean the dataset by removing columns with any missing values}
+\NormalTok{imputed\_df }\OtherTok{\textless{}{-}}\NormalTok{ filtered\_df}
+\NormalTok{imputed\_df }\OtherTok{\textless{}{-}}\NormalTok{ imputed\_df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\FunctionTok{where}\NormalTok{(}\SpecialCharTok{\textasciitilde{}} \SpecialCharTok{!}\FunctionTok{any}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(.))))}
+
+\CommentTok{\# Separate the data into GDP and CO2 emissions}
+\NormalTok{gdp\_data }\OtherTok{\textless{}{-}}\NormalTok{ imputed\_df[imputed\_df}\SpecialCharTok{$}\NormalTok{Indicator.Code }\SpecialCharTok{==} \StringTok{\textquotesingle{}NY.GDP.MKTP.KD.ZG\textquotesingle{}}\NormalTok{, ]}
+\NormalTok{co2\_data }\OtherTok{\textless{}{-}}\NormalTok{ imputed\_df[imputed\_df}\SpecialCharTok{$}\NormalTok{Indicator.Code }\SpecialCharTok{==} \StringTok{\textquotesingle{}EN.ATM.CO2E.PC\textquotesingle{}}\NormalTok{, ]}
+
+\NormalTok{gdp\_data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       Country.Name Country.Code        Indicator.Name    Indicator.Code
+## 14650    Sri Lanka          LKA GDP growth (annual %) NY.GDP.MKTP.KD.ZG
+##          X1990    X1991    X1992    X1993    X1994    X1995    X1996  X1997
+## 14650 6.399995 4.599987 4.399991 6.900063 5.599919 5.500085 3.799967 6.4054
+##          X1998   X1999    X2000     X2001    X2002    X2003    X2004    X2005
+## 14650 4.698423 4.30054 6.000033 -1.545408 3.964676 5.940269 5.445061 6.241748
+##          X2006    X2007    X2008    X2009    X2010    X2011    X2012    X2013
+## 14650 7.668292 6.796826 5.950088 3.538912 8.015967 8.669483 8.632181 4.051746
+##          X2014    X2015    X2016    X2017    X2018      X2019     X2020
+## 14650 6.377979 4.205955 5.053625 6.460681 2.310084 -0.2204839 -4.624516
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{co2\_data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       Country.Name Country.Code                         Indicator.Name
+## 4200    Bangladesh          BGD CO2 emissions (metric tons per capita)
+## 14637    Sri Lanka          LKA CO2 emissions (metric tons per capita)
+##       Indicator.Code     X1990      X1991     X1992     X1993     X1994
+## 4200  EN.ATM.CO2E.PC 0.1075500 0.09914389 0.1062574 0.1108141 0.1171428
+## 14637 EN.ATM.CO2E.PC 0.2231562 0.22882772 0.2977851 0.2856171 0.3201689
+##           X1995     X1996     X1997     X1998     X1999    X2000     X2001
+## 4200  0.1405383 0.1403549 0.1554492 0.1548004 0.1586172 0.160122 0.1946868
+## 14637 0.3199767 0.4560129 0.4520811 0.4637947 0.5086283 0.582056 0.5733532
+##           X2002     X2003     X2004     X2005     X2006     X2007     X2008
+## 4200  0.2034012 0.2097372 0.2199550 0.2321354 0.2517219 0.2635866 0.2859333
+## 14637 0.5957498 0.6430184 0.6602317 0.7108110 0.6242808 0.6769179 0.6315156
+##           X2009     X2010     X2011     X2012     X2013     X2014     X2015
+## 4200  0.3050301 0.3402333 0.3615574 0.3878292 0.4087882 0.4251895 0.4635171
+## 14637 0.6000934 0.6324486 0.7387531 0.8298177 0.6837293 0.8219749 0.9017750
+##           X2016     X2017     X2018     X2019     X2020
+## 4200  0.5077393 0.5417878 0.5861576 0.5597337 0.5106476
+## 14637 1.0813100 1.0759614 1.0009368 1.0745264 0.9966832
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Reshape CO2 emissions data for easier analysis}
+\NormalTok{reshaped\_data }\OtherTok{\textless{}{-}}\NormalTok{ co2\_data[, }\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{)]}
+
+\NormalTok{reshaped\_data }\OtherTok{\textless{}{-}} \FunctionTok{t}\NormalTok{(reshaped\_data)}
+\NormalTok{reshaped\_data }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(reshaped\_data)}
+\FunctionTok{colnames}\NormalTok{(reshaped\_data) }\OtherTok{\textless{}{-}}\NormalTok{ reshaped\_data[}\DecValTok{1}\NormalTok{, ]}
+\NormalTok{reshaped\_data }\OtherTok{\textless{}{-}}\NormalTok{ reshaped\_data[}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, ]}
+\NormalTok{reshaped\_data[] }\OtherTok{\textless{}{-}} \FunctionTok{lapply}\NormalTok{(reshaped\_data, as.numeric)}
+
+\NormalTok{reshaped\_data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       Bangladesh Sri Lanka
+## X1990 0.10755000 0.2231562
+## X1991 0.09914389 0.2288277
+## X1992 0.10625740 0.2977851
+## X1993 0.11081410 0.2856171
+## X1994 0.11714280 0.3201689
+## X1995 0.14053830 0.3199767
+## X1996 0.14035490 0.4560129
+## X1997 0.15544920 0.4520811
+## X1998 0.15480040 0.4637947
+## X1999 0.15861720 0.5086283
+## X2000 0.16012200 0.5820560
+## X2001 0.19468680 0.5733532
+## X2002 0.20340120 0.5957498
+## X2003 0.20973720 0.6430184
+## X2004 0.21995500 0.6602317
+## X2005 0.23213540 0.7108110
+## X2006 0.25172190 0.6242808
+## X2007 0.26358660 0.6769179
+## X2008 0.28593330 0.6315156
+## X2009 0.30503010 0.6000934
+## X2010 0.34023330 0.6324486
+## X2011 0.36155740 0.7387531
+## X2012 0.38782920 0.8298177
+## X2013 0.40878820 0.6837293
+## X2014 0.42518950 0.8219749
+## X2015 0.46351710 0.9017750
+## X2016 0.50773930 1.0813100
+## X2017 0.54178780 1.0759614
+## X2018 0.58615760 1.0009368
+## X2019 0.55973370 1.0745264
+## X2020 0.51064760 0.9966832
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Prepare data for plotting}
+\CommentTok{\# Filter CO2 and GDP data for Sri Lanka}
+\NormalTok{co2\_filtered }\OtherTok{\textless{}{-}}\NormalTok{ co2\_data[co2\_data}\SpecialCharTok{$}\NormalTok{Country.Code }\SpecialCharTok{==} \StringTok{\textquotesingle{}LKA\textquotesingle{}}\NormalTok{, ]}
+\NormalTok{gdp\_filtered }\OtherTok{\textless{}{-}}\NormalTok{ gdp\_data[}\DecValTok{1}\NormalTok{, ]  }
+
+\NormalTok{co2\_filtered }\OtherTok{\textless{}{-}}\NormalTok{ co2\_filtered[, }\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{)]}
+\NormalTok{gdp\_filtered }\OtherTok{\textless{}{-}}\NormalTok{ gdp\_filtered[, }\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{)]}
+
+\NormalTok{co2\_transposed }\OtherTok{\textless{}{-}} \FunctionTok{t}\NormalTok{(co2\_filtered)}
+\NormalTok{gdp\_transposed }\OtherTok{\textless{}{-}} \FunctionTok{t}\NormalTok{(gdp\_filtered)}
+
+\NormalTok{co2\_vector }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(co2\_transposed)}
+\NormalTok{gdp\_vector }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(gdp\_transposed)}
+
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{CO2\_Emissions =}\NormalTok{ co2\_vector,}
+  \AttributeTok{GDP\_Growth =}\NormalTok{ gdp\_vector}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(psych)}
+
+\CommentTok{\# Provide descriptive statistics for reshaped data}
+\FunctionTok{describe}\NormalTok{(reshaped\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            vars  n mean   sd median trimmed  mad  min  max range skew kurtosis
+## Bangladesh    1 31 0.28 0.15   0.23    0.27 0.16 0.10 0.59  0.49 0.56    -1.10
+## Sri Lanka     2 31 0.64 0.25   0.63    0.63 0.26 0.22 1.08  0.86 0.18    -0.89
+##              se
+## Bangladesh 0.03
+## Sri Lanka  0.05
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+
+\CommentTok{\# Prepare and combine data for plotting}
+\NormalTok{df\_SL }\OtherTok{\textless{}{-}}\NormalTok{ reshaped\_data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Sri Lanka}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{Value =} \StringTok{\textasciigrave{}}\AttributeTok{Sri Lanka}\StringTok{\textasciigrave{}}\NormalTok{)}
+\NormalTok{df\_SL }\OtherTok{\textless{}{-}}\NormalTok{ df\_SL }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Year =} \FunctionTok{seq}\NormalTok{(}\DecValTok{1990}\NormalTok{, }\DecValTok{1990} \SpecialCharTok{+} \FunctionTok{nrow}\NormalTok{(df\_SL) }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{))}
+
+\NormalTok{df\_BAN }\OtherTok{\textless{}{-}}\NormalTok{ reshaped\_data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Bangladesh}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{Value =} \StringTok{\textasciigrave{}}\AttributeTok{Bangladesh}\StringTok{\textasciigrave{}}\NormalTok{)}
+\NormalTok{df\_BAN }\OtherTok{\textless{}{-}}\NormalTok{ df\_BAN }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Year =} \FunctionTok{seq}\NormalTok{(}\DecValTok{1990}\NormalTok{, }\DecValTok{1990} \SpecialCharTok{+} \FunctionTok{nrow}\NormalTok{(df\_BAN) }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{))}
+
+\NormalTok{combined\_data }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}
+  \FunctionTok{transform}\NormalTok{(df\_SL, }\AttributeTok{Country =} \StringTok{"Sri Lanka"}\NormalTok{),}
+  \FunctionTok{transform}\NormalTok{(df\_BAN, }\AttributeTok{Country =} \StringTok{"Bangladesh"}\NormalTok{)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'ggplot2'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:psych':
+## 
+##     %+%, alpha
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Plot CO2 emissions per capita over time for Sri Lanka}
+\FunctionTok{ggplot}\NormalTok{(df\_SL, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Year, }\AttributeTok{y =}\NormalTok{ Value)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{color =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.9}\NormalTok{, }\AttributeTok{linetype =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Trends in CO2 Emissions Per Capita Over Time (Sri Lanka)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Year"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"CO2 Emissions (Metric Tons per Capita)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## i Please use `linewidth` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+\end{verbatim}
+
+\includegraphics{rmarkdown_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Compare CO2 emissions per capita between Sri Lanka and Bangladesh}
+\FunctionTok{ggplot}\NormalTok{(combined\_data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Year, }\AttributeTok{y =}\NormalTok{ Value, }\AttributeTok{color =}\NormalTok{ Country, }\AttributeTok{group =}\NormalTok{ Country)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}  
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Comparison of CO2 Emissions (Metric Tons per Capita): Sri Lanka vs Bangladesh"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Year"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"CO2 Emissions (Metric Tons per Capita)"}\NormalTok{,}
+       \AttributeTok{color =} \StringTok{"Country"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"bottom"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{rmarkdown_files/figure-latex/unnamed-chunk-7-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+
+\CommentTok{\# Plot correlation between CO2 emissions and GDP growth}
+\FunctionTok{ggplot}\NormalTok{(df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ GDP\_Growth, }\AttributeTok{y =}\NormalTok{ CO2\_Emissions)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Correlation between CO2 Emissions and GDP Growth"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"GDP Growth (\%)"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"CO2 Emissions (Metric Tons per Capita)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\includegraphics{rmarkdown_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+\end{document}

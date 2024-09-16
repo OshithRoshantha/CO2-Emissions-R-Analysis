@@ -1,0 +1,1 @@
+"0","ggplot(nzlV8)+aes(x=VALUE)+labs(title = ""Electricity production from coal sources in New Zealand"")+geom_density()"

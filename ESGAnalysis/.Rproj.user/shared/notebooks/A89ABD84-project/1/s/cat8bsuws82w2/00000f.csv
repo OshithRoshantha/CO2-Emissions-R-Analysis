@@ -1,0 +1,2 @@
+"0","#Remove rows, where non-NULL data count is less than half"
+"0","fData<-fData[(rowSums(!is.na(fData[,5:ncol(fData)])))>=32,]"

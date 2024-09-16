@@ -1,0 +1,2 @@
+"0","#filter specifed Countries"
+"0","fData<-data[data$Country.Code %in% c('AUS','NZL','CHN'),]"

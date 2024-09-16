@@ -1,0 +1,7 @@
+"0","#Replace each NA values in row by rowMean"
+"0","for(i in 1:nrow(fData)){"
+"0","  rv <- fData[i, 5:ncol(fData)]  "
+"0","  nv <- as.numeric(rv[!is.na(rv)])  "
+"0","  rMean <- mean(nv, na.rm = TRUE) "
+"0","  fData[i, is.na(fData[i,])] <- rMean"
+"0","}"

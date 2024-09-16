@@ -1,0 +1,3 @@
+"0","#Population density (people per sq. km of land area)"
+"0","library('ggplot2')"
+"0","ggplot(ausV24)+aes(x=VALUE)+labs(title = ""Population density in Australia"")+geom_density()"
